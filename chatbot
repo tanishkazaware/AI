@@ -1,0 +1,86 @@
+
+# Simple Rule-Based Chatbot
+
+print("Chatbot: Hello! Welcome to my chatbot.")
+print("Type 'bye' to exit.")
+
+while True:
+
+    user = input("You: ").lower()
+
+    if "hello" in user or "hi" in user:
+        print("Bot: Hello! How can I help you?")
+
+    elif "name" in user:
+        print("Bot: I am a simple AI chatbot.")
+
+    elif "how are you" in user:
+        print("Bot: I am fine. Thank you!")
+
+    elif "course" in user or "subject" in user:
+        print("Bot: I can provide basic course information.")
+
+    elif "help" in user:
+        print("Bot: Sure! How can I help you?")
+
+    elif "thank" in user:
+        print("Bot: You are welcome!")
+
+    elif "bye" in user or "exit" in user or "quit" in user:
+        print("Bot: Goodbye! Have a nice day.")
+        break
+
+    else:
+        print("Bot: Sorry, I do not understand.")
+
+
+. Aim
+To develop a simple rule-based chatbot using Python that responds to user input through predefined rules and pattern matching.
+2. Objectives
+1. To understand the basic concept of chatbots in AI.
+2. To study rule-based conversation systems.
+3. To understand pattern matching.
+4. To implement a chatbot using predefined responses.
+5. To understand how a chatbot interacts with users.
+3. Theory
+Chatbot:
+
+A chatbot is a computer program that communicates with users through text or voice.
+
+Rule-Based Chatbot:
+
+A rule-based chatbot uses predefined IF-THEN rules to understand user input and provide suitable responses.
+
+Pattern Matching:
+
+Pattern matching is the process of identifying specific words or keywords in the user's message.
+
+For example:
+- If input contains "hello" → Display "Hello! How can I help you?"
+- If input contains "name" → Display "I am a simple AI chatbot."
+- If input contains "bye" → Display "Goodbye!"
+Working of Chatbot:
+1. User enters a message.
+2. The chatbot converts it into lowercase.
+3. It checks the input against predefined rules.
+4. If a pattern matches, it displays the corresponding response.
+5. If no pattern matches, it displays a default response.
+6. The conversation continues until the user types bye.
+  
+4. Algorithm
+1. Start the program.
+2. Define predefined rules and responses.
+3. Display a welcome message.
+4. Accept user input.
+5. Convert input into lowercase.
+6. Check whether the input contains an exit keyword.
+7. If yes, display the goodbye message and stop.
+8. Otherwise, check the input against predefined patterns.
+9. If a pattern matches, display its response.
+10. If no pattern matches, display the default response.
+11. Repeat the process.
+12. Stop.
+
+Conclusion
+Thus, we successfully developed a simple rule-based chatbot using Python. The chatbot identifies keywords in user input using pattern matching and provides predefined responses. This practical demonstrates the basic working of conversational AI.
+  
