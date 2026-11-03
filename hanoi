@@ -1,0 +1,105 @@
+
+# Tower of Hanoi using State Space
+
+A = [3, 2, 1]
+B = []
+C = []
+
+count = 0
+
+def display():
+    print("A =", A, "B =", B, "C =", C)
+
+def hanoi(n, source, auxiliary, destination):
+
+    global count
+
+    if n == 1:
+        disk = source.pop()
+        destination.append(disk)
+
+        count += 1
+        print("Move disk", disk)
+        display()
+        return
+
+    hanoi(n-1, source, destination, auxiliary)
+
+    disk = source.pop()
+    destination.append(disk)
+
+    count += 1
+    print("Move disk", disk)
+    display()
+
+    hanoi(n-1, auxiliary, source, destination)
+
+
+print("Initial State:")
+display()
+
+hanoi(3, A, B, C)
+
+print("Final State:")
+display()
+
+print("Total Moves:", count)
+
+
+
+. Aim
+To implement the Tower of Hanoi problem using State Space Search and display the sequence of legal moves.
+2. Objectives
+1. To understand the concept of State Space Search.
+2. To identify the initial state and goal state.
+3. To understand legal and illegal moves.
+4. To implement the Tower of Hanoi using Python.
+5. To find the minimum number of moves required.
+3. Theory
+State Space Search:
+
+State Space Search is an AI technique used to solve problems by representing different situations as states and finding a path from the initial state to the goal state.
+
+Tower of Hanoi:
+
+Tower of Hanoi is a puzzle consisting of three pegs (A, B, C) and a number of disks of different sizes.
+
+Rules:
+1. Only one disk can be moved at a time.
+2. Only the top disk can be moved.
+3. A larger disk cannot be placed on a smaller disk.
+4. All disks must be transferred from source peg A to destination peg C.
+Problem Formulation:
+Component	Description
+Initial State	All disks on peg A
+Goal State	All disks on peg C
+Operators	Move disk between pegs
+Path Cost	1 for each move
+Search Strategy	State Space Search
+
+Minimum number of moves:
+\[
+2^n-1
+\]
+
+Where n is the number of disks.
+
+For 3 disks:
+\[
+2^3-1=7\ moves
+\]
+
+4. Algorithm
+1. Start the program.
+2. Read the number of disks.
+3. Create three pegs A, B and C.
+4. Place all disks on peg A.
+5. Check the initial and goal states.
+6. Move the top disk from the source peg.
+7. Place it on the destination peg following the rules.
+8. Repeat the process until all disks reach peg C.
+9. Display every move and the total number of moves.
+10. Stop.
+
+  Conclusion
+Thus, we successfully implemented the Tower of Hanoi problem using Python. The program moves all disks from the source peg to the destination peg by following the rules and achieves the goal in the minimum number of moves.
