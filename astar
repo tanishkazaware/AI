@@ -1,0 +1,127 @@
+
+import heapq
+
+# Initial and goal state
+start = (1, 2, 3,
+         4, 0, 6,
+         7, 5, 8)
+
+goal = (1, 2, 3,
+        4, 5, 6,
+        7, 8, 0)
+
+# Heuristic: Count misplaced tiles
+def h(state):
+    return sum(1 for i in range(9)
+               if state[i] != 0 and state[i] != goal[i])
+
+# A* Algorithm
+def astar(start):
+    pq = [(h(start), 0, start, [])]
+    visited = set()
+
+    while pq:
+        f, g, state, path = heapq.heappop(pq)
+
+        if state in visited:
+            continue
+
+        visited.add(state)
+        path = path + [state]
+
+        if state == goal:
+            return path
+
+        zero = state.index(0)
+        moves = [-3, 3, -1, 1]
+
+        for move in moves:
+            new = zero + move
+
+            if 0 <= new < 9:
+                if move == -1 and zero % 3 == 0:
+                    continue
+                if move == 1 and zero % 3 == 2:
+                    continue
+
+                new_state = list(state)
+                new_state[zero], new_state[new] = (
+                    new_state[new], new_state[zero])
+
+                new_state = tuple(new_state)
+
+                if new_state not in visited:
+                    heapq.heappush(
+                        pq,
+                        (g + 1 + h(new_state),
+                         g + 1, new_state, path)
+                    )
+
+    return None
+
+# Display solution
+result = astar(start)
+
+if result:
+    print("Solution found:")
+    for state in result:
+        for i in range(0, 9, 3):
+            print(state[i:i+3])
+        print()
+    print("Total moves:", len(result) - 1)
+else:
+    print("No solution found")
+
+
+. Aim
+To implement the A* Search Algorithm for solving the 8-Puzzle Problem using Python.
+2. Objectives
+1. To understand the concept of informed search techniques.
+2. To study the working of the A* algorithm.
+3. To implement the 8-Puzzle Problem using Python.
+4. To calculate the cost using g(n) and h(n).
+5. To find the optimal path from the initial state to the goal state.
+3. Theory
+A Algorithm:*
+
+A* is an informed search algorithm used to find the shortest or least-cost path from the initial state to the goal state.
+
+It uses two values:
+- g(n): Cost from the starting state to the current state.
+- h(n): Estimated cost from the current state to the goal state.
+The evaluation function is:
+\[
+f(n)=g(n)+h(n)
+\]
+
+8-Puzzle Problem:
+
+The 8-Puzzle consists of a 3×3 board containing 8 numbered tiles and one blank space (0).
+
+The objective is to arrange the tiles in the correct order by moving the blank space up, down, left or right.
+
+Heuristic Function:
+
+We use Manhattan Distance, which calculates the total distance of each tile from its correct position.
+
+A* uses two lists:
+- Open List: Stores nodes waiting to be explored.
+- Closed List: Stores already explored nodes.
+4. Algorithm
+1. Start the program.
+2. Define the initial state and goal state.
+3. Calculate the heuristic value using Manhattan Distance.
+4. Set g(n) = 0 for the initial state.
+5. Calculate f(n) = g(n) + h(n).
+6. Insert the initial state into the priority queue.
+7. Select the state having the lowest f(n).
+8. Check whether the current state is the goal state.
+9. If yes, display the solution path.
+10. Otherwise, generate new states by moving the blank tile.
+11. Calculate g(n), h(n) and f(n) for each new state.
+12. Repeat until the goal state is reached.
+13. Display the final solution.
+14. Stop.
+
+. Conclusion
+Thus, we successfully implemented the A* Search Algorithm for the 8-Puzzle Problem using Python. The algorithm uses g(n) and h(n) to find the optimal path from the initial state to the goal state.
