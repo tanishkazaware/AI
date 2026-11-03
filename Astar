@@ -1,0 +1,97 @@
+8-Queens Using Backtracking
+1) Code
+MAX_STEPS = 120
+states = []
+
+def is_safe(board, row, col):
+    return all(board[r][col] != 'Q' and abs(col - c) != row - r
+               for r in range(row) for c in range(8) if board[r][c] == 'Q')
+
+def save_state(board, action, row, col):
+    if len(states) < MAX_STEPS:
+        states.append((action, row + 1, col + 1, [r[:] for r in board]))
+
+def solve(board, row):
+    if row == 8:
+        return True
+    for col in range(8):
+        if is_safe(board, row, col):
+            board[row][col] = 'Q'
+            save_state(board, "PLACE", row, col)
+            if solve(board, row + 1):
+                return True
+            board[row][col] = '.'
+            save_state(board, "BACKTRACK", row, col)
+    return False
+
+def display_states():
+    for start in range(0, len(states), 4):
+        group = states[start:start + 4]
+        print("\n" + "=" * 100)
+        for i, (action, row, col, _) in enumerate(group):
+            print(f"STEP {start + i + 1}: {action} ({row},{col})", end="       ")
+        print()
+        print("-" * 100)
+        for r in range(8):
+            for _, _, _, board in group:
+                print(" ".join(board[r]), end="     ")
+            print()
+        print("=" * 100)
+
+board = [['.' for _ in range(8)] for _ in range(8)]
+print("==============================================")
+print("       8-QUEENS BACKTRACKING SEARCH")
+print("==============================================")
+print("\nQ = Queen")
+print(". = Empty Position")
+if solve(board, 0):
+    print("\nSearch states:")
+    display_states()
+    print("\n\n==============================================")
+    print("               FINAL SOLUTION")
+    print("==============================================")
+    for row in board:
+        print(" ".join(row))
+else:
+    print("No solution exists.")
+
+
+
+
+
+
+2) Theory to write
+Question
+Official syllabus: Part B, assignment 3. Implement Backtracking search to solve the 8-Queens constraint satisfaction problem.
+Aim
+To solve the 8-Queens constraint satisfaction problem using backtracking search.
+Objectives
+1.	Represent a chessboard and queen placements.
+2.	Enforce nonattacking row, column and diagonal constraints.
+3.	Prune invalid partial assignments with a safety test.
+4.	Display a valid board and selected intermediate search states.
+Requirements
+Python 3; no external packages. An 8 x 8 board using Q for a queen and . for an empty cell.
+Theory
+A queen attacks horizontally, vertically and diagonally. The 8-Queens problem asks for eight queens on an 8 x 8 board with no attacking pair.
+A constraint satisfaction problem (CSP) has variables, domains and constraints. Let Q[r] denote the chosen column for row r. Variables are Q[0]...Q[7], each with domain {0,...,7}. For distinct rows r,s:
+•	Column constraint: Q[r] != Q[s].
+•	Diagonal constraint: abs(Q[r]-Q[s]) != abs(r-s).
+•	One queen per row is guaranteed by assigning one column for each row.
+Backtracking incrementally builds a partial assignment. Whenever no legal value remains for the next variable, it undoes the previous assignment and tries an alternative. It is depth-first exploration with constraint checks that prune illegal partial boards.
+This code checks safety before each placement. It does not implement full forward checking, arc consistency, or domain propagation. Do not describe those extra techniques as features of this shortened version.
+Algorithm
+1.	Initialize an empty 8 x 8 board and start at row 0.
+2.	If the row index is 8, return success.
+3.	For each column in the current row, check earlier queens for a column/diagonal conflict.
+4.	If safe, place a queen and optionally save a display snapshot.
+5.	Recursively attempt to solve the next row.
+6.	If the recursive call succeeds, propagate success.
+7.	Otherwise remove the queen, optionally record the backtrack, and try the next column.
+8.	If every column fails, return failure to the previous row.
+9.	Display the first solution found, or report failure if the search exhausts all choices.
+Observation / result
+The supplied left-to-right search returns zero-based columns [0,4,7,5,2,6,1,3] for rows 0 through 7. All eight queens are nonattacking. The intermediate display records only the first 120 actions; the final solution board is printed separately.
+Conclusion
+Backtracking finds a valid 8-Queens arrangement by pruning unsafe placements and undoing choices that lead to dead ends. The program stops after its first complete solution.
+
