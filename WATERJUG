@@ -1,0 +1,113 @@
+
+# DFS for Water Jug Problem
+
+def dfs():
+
+    stack = [((0, 0), [])]
+    visited = set()
+
+    while stack:
+
+        state, path = stack.pop()
+
+        if state in visited:
+            continue
+
+        visited.add(state)
+        path = path + [state]
+
+        x, y = state
+
+        # Check goal
+        if x == 2 or y == 2:
+            return path
+
+        # Generate possible operations
+        next_states = [
+            (4, y),  # Fill Jug A
+            (x, 3),  # Fill Jug B
+            (0, y),  # Empty Jug A
+            (x, 0),  # Empty Jug B
+            (x-min(x, 3-y), y+min(x, 3-y)),  # A to B
+            (x+min(y, 4-x), y-min(y, 4-x))   # B to A
+        ]
+
+        for new_state in next_states:
+            if new_state not in visited:
+                stack.append((new_state, path))
+
+    return None
+
+
+# Display solution
+result = dfs()
+
+if result:
+    print("Solution Found:")
+    for state in result:
+        print(state)
+
+    print("Total Steps:", len(result)-1)
+else:
+    print("No Solution Found")
+
+
+. Aim
+To implement Depth First Search (DFS) for solving the Water Jug Problem using Python.
+2. Objectives
+1. To understand the concept of Uninformed Search.
+2. To study the working of Depth First Search.
+3. To implement DFS for the Water Jug Problem.
+4. To find the solution path using valid water jug operations.
+5. To understand the concept of backtracking.
+3. Theory
+Depth First Search (DFS):
+
+DFS is an uninformed search algorithm that explores one branch deeply before moving to another branch.
+
+It uses a Stack (LIFO – Last In First Out) to store states.
+
+Water Jug Problem:
+
+The Water Jug Problem consists of two jugs:
+- Jug A: 4 litres capacity.
+- Jug B: 3 litres capacity.
+Initially, both jugs are empty. The objective is to obtain exactly 2 litres of water in either jug.
+
+Initial State: (0, 0)
+
+Goal State: (2, 0) or (0, 2)
+
+A state is represented as (x, y), where:
+- x = Water in 4-litre jug.
+- y = Water in 3-litre jug.
+Possible Operations:
+1. Fill the 4-litre jug.
+2. Fill the 3-litre jug.
+3. Empty the 4-litre jug.
+4. Empty the 3-litre jug.
+5. Pour water from 4-litre jug to 3-litre jug.
+6. Pour water from 3-litre jug to 4-litre jug.
+Important Characteristics of DFS:
+- It is an uninformed search algorithm.
+- It explores one branch deeply.
+- It uses a stack.
+- It uses backtracking.
+- It does not guarantee the shortest path.
+4. Algorithm
+1. Start the program.
+2. Define the capacities of both jugs.
+3. Set the initial state as (0, 0).
+4. Define the goal state as (2, 0) or (0, 2).
+5. Create a stack and visited set.
+6. Push the initial state into the stack.
+7. Remove the top state from the stack.
+8. Check whether the goal state is reached.
+9. Generate all possible water jug operations.
+10. Add unvisited states to the stack.
+11. Repeat until the goal is reached.
+12. Display the solution path.
+13. Stop.
+
+Conclusion
+Thus, we successfully implemented Depth First Search (DFS) for the Water Jug Problem using Python. The algorithm explores different states using a stack and finds the required quantity of water through valid operations and backtracking.
