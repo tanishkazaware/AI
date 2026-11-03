@@ -1,0 +1,105 @@
+
+# 8 Queens Problem using Backtracking
+
+N = 8
+board = [-1] * N
+
+def safe(row, col):
+
+    for i in range(row):
+
+        if board[i] == col:
+            return False
+
+        if abs(board[i] - col) == abs(i - row):
+            return False
+
+    return True
+
+
+def solve(row):
+
+    if row == N:
+        return True
+
+    for col in range(N):
+
+        if safe(row, col):
+
+            board[row] = col
+
+            if solve(row + 1):
+                return True
+
+            board[row] = -1
+
+    return False
+
+
+if solve(0):
+
+    print("Solution Found:")
+
+    for i in range(N):
+        for j in range(N):
+
+            if board[i] == j:
+                print("Q", end=" ")
+            else:
+                print(".", end=" ")
+
+        print()
+
+else:
+    print("No Solution")
+
+
+Aim
+To implement Backtracking Search for solving the 8-Queens problem using Python.
+2. Objectives
+1. To understand the concept of Constraint Satisfaction Problems (CSP).
+2. To study the working of Backtracking Search.
+3. To understand variables, domains and constraints.
+4. To place eight queens on an 8×8 chessboard.
+5. To ensure that no two queens attack each other.
+3. Theory
+Constraint Satisfaction Problem (CSP):
+
+A CSP is a problem in which values are assigned to variables while satisfying certain conditions called constraints.
+
+8-Queens Problem:
+
+The 8-Queens problem is a puzzle in which eight queens must be placed on an 8×8 chessboard so that no two queens attack each other.
+
+A queen can attack another queen:
+- In the same row.
+- In the same column.
+- Along the same diagonal.
+CSP Representation:
+Component	Description
+Variables	8 Queens (Q1 to Q8)
+Domain	Columns 1 to 8
+Constraints	No same column or diagonal
+Initial State	Empty chessboard
+Goal State	8 queens placed safely
+
+Backtracking Search:
+
+Backtracking is a search technique that places queens one by one. If a queen creates a conflict, the algorithm removes it and tries another position.
+
+It uses recursion to find a valid solution.
+4. Algorithm
+1. Start the program.
+2. Create an empty 8×8 chessboard.
+3. Start placing queens from the first row.
+4. Try each column in the current row.
+5. Check whether the position is safe.
+6. If safe, place the queen.
+7. Move to the next row.
+8. If no safe position is available, backtrack.
+9. Repeat until all eight queens are placed.
+10. Display the chessboard.
+11. Stop.
+
+Conclusion
+Thus, we successfully implemented the 8-Queens problem using Backtracking Search in Python. The algorithm places queens row by row while checking column and diagonal constraints. If a conflict occurs, it backtracks and tries another position until a valid solution is found.
