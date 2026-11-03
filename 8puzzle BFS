@@ -1,0 +1,125 @@
+
+from collections import deque
+
+# Initial and goal state
+start = (1, 2, 3,
+         4, 0, 6,
+         7, 5, 8)
+
+goal = (1, 2, 3,
+        4, 5, 6,
+        7, 8, 0)
+
+# BFS Algorithm
+def bfs(start):
+
+    queue = deque([(start, [])])
+    visited = {start}
+
+    while queue:
+
+        state, path = queue.popleft()
+        path = path + [state]
+
+        if state == goal:
+            return path
+
+        zero = state.index(0)
+
+        for move in [-3, 3, -1, 1]:
+
+            new = zero + move
+
+            if 0 <= new < 9:
+
+                if move == -1 and zero % 3 == 0:
+                    continue
+
+                if move == 1 and zero % 3 == 2:
+                    continue
+
+                new_state = list(state)
+                new_state[zero], new_state[new] = (
+                    new_state[new], new_state[zero])
+
+                new_state = tuple(new_state)
+
+                if new_state not in visited:
+                    visited.add(new_state)
+                    queue.append((new_state, path))
+
+    return None
+
+
+# Display solution
+result = bfs(start)
+
+if result:
+    print("Solution Found:")
+
+    for state in result:
+        for i in range(0, 9, 3):
+            print(state[i:i+3])
+        print()
+
+    print("Total Moves:", len(result)-1)
+
+else:
+    print("No Solution Found")
+
+
+. Aim
+To implement Breadth First Search (BFS) for solving the 8-Puzzle Problem using Python.
+2. Objectives
+1. To understand the concept of Uninformed Search.
+2. To study the working of Breadth First Search.
+3. To implement BFS for the 8-Puzzle Problem.
+4. To find the solution path from initial state to goal state.
+5. To understand the use of queue and visited set.
+3. Theory
+Breadth First Search (BFS):
+
+BFS is an uninformed search algorithm that explores nodes level by level. It starts from the initial state and explores all neighboring states before moving to the next level.
+
+BFS uses a FIFO (First In First Out) queue to store states.
+
+8-Puzzle Problem:
+
+The 8-Puzzle consists of a 3×3 board containing 8 numbered tiles and one blank space represented by 0.
+
+The blank space can move:
+- Up
+- Down
+- Left
+- Right
+The objective is to arrange all tiles in the correct order.
+
+Important Terms:
+- Initial State: Starting arrangement of tiles.
+- Goal State: Final required arrangement.
+- Queue: Stores states waiting to be explored.
+- Visited Set: Stores already visited states.
+- Parent: Stores the previous state to find the solution path.
+Characteristics of BFS:
+1. It is an uninformed search algorithm.
+2. It explores level by level.
+3. It uses a FIFO queue.
+4. It does not use a heuristic function.
+5. It finds the shortest path when all moves have equal cost.
+4. Algorithm
+1. Start the program.
+2. Define the initial state and goal state.
+3. Create an empty queue and visited set.
+4. Insert the initial state into the queue.
+5. Remove the first state from the queue.
+6. Check whether the current state is the goal state.
+7. If yes, display the solution path.
+8. Otherwise, generate new states by moving the blank tile.
+9. Check whether the new states are already visited.
+10. Add unvisited states to the queue.
+11. Repeat until the goal state is reached.
+12. Display the solution path.
+13. Stop.
+
+Conclusion
+Thus, we successfully implemented Breadth First Search (BFS) for solving the 8-Puzzle Problem using Python. BFS explores states level by level using a FIFO queue and finds the shortest solution path when all moves have equal cost.
